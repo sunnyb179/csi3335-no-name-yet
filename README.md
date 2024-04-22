@@ -50,3 +50,20 @@ Once the virtual environment is activated and dependencies are installed, you ca
 ```bash
 deactivate
 ```
+### Database Setup Instructions
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/sunnyb179/csi3335-no-name-yet.git
+   ```
+   
+2. **Navigate to the Repository**
+   ```bash
+   cd csi3335-no-name-yet
+   ```
+
+3. **Import the Database Dump**
+   ```bash
+   mysql -u root -p nonameyet < database_dump.sql
+   ```
+    password is: nguyen12
+
