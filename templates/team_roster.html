@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Team Roster for {{ team_name }} ({{ year }})</title>
+</head>
+<body>
+    <h1>Team Roster for {{ team_name }} ({{ year }})</h1>
+    <h2>Batting Statistics</h2>
+    <table border="1">
+        <tr>
+            <th>Player</th>
+            <th>Games Played</th>
+            <th>Batting Average</th>
+            <th>On Base Percentage</th>
+            <th>Slugging Percentage</th>
+        </tr>
+        {% for batter in batting_stats %}
+        <tr>
+            <td>{{ batter['name'] }}</td>
+            <td>{{ batter['games'] }}</td>
+            <td>{{ batter['avg'] }}</td>
+            <td>{{ batter['obp'] }}</td>
+            <td>{{ batter['slg'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Pitching Statistics</h2>
+    <table border="1">
+        <tr>
+            <th>Player</th>
+            <th>Games Pitched</th>
+            <th>Games Started</th>
+            <th>Innings Pitched</th>
+            <th>WHIP</th>
+            <th>Strikeouts per 9 Innings</th>
+        </tr>
+        {% for pitcher in pitching_stats %}
+        <tr>
+            <td>{{ pitcher['name'] }}</td>
+            <td>{{ pitcher['games'] }}</td>
+            <td>{{ pitcher['games_started'] }}</td>
+            <td>{{ pitcher['innings_pitched'] }}</td>
+            <td>{{ pitcher['whip'] }}</td>
+            <td>{{ pitcher['k_per_9'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

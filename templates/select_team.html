@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Team</title>
+</head>
+<body>
+    <h1>Select a Team and Year</h1>
+    <form action="{{ url_for('team_roster') }}" method="get">
+    <label for="team_name">Team:</label>
+    <select name="team_name" id="team_name">
+        {% for team in teams %}
+            <option value="{{ team[0] }}">{{ team[0] }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="year">Year:</label>
+    <select name="year" id="year">
+        {% for year in years %}
+            <option value="{{ year[0] }}">{{ year[0] }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

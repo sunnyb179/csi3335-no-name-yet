@@ -8,20 +8,26 @@ try:
 except Exception as e:
     print("Error connecting to database:", e)
 
-# load your CSV file and handle exceptions
+# load CSV files with specified encoding and handle exceptions
 try:
-    df_teams = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\Teams.csv')
-    df_halloffame = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\HallOfFame.csv')
+    df_teams = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\Teams.csv', encoding='ISO-8859-1')
+    df_halloffame = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\HallOfFame.csv', encoding='ISO-8859-1')
+    df_batting = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\Batting.csv', encoding='ISO-8859-1')
+    df_pitching = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\Pitching.csv', encoding='ISO-8859-1')
+    df_people = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\People.csv', encoding='ISO-8859-1')
     print("CSV files loaded successfully.")
 except FileNotFoundError as e:
     print("File not found:", e)
 except Exception as e:
     print("Error loading CSV files:", e)
 
-# import data into your database and handle potential SQL errors
+# import data into database and handle potential SQL errors
 try:
     df_teams.to_sql('teams', con=engine, if_exists='append', index=False)
     df_halloffame.to_sql('halloffame', con=engine, if_exists='append', index=False)
+    df_batting.to_sql('batting', con=engine, if_exists='append', index=False)
+    df_pitching.to_sql('pitching', con=engine, if_exists='append', index=False)
+    df_people.to_sql('people', con=engine, if_exists='append', index=False)
     print("Data imported into the database successfully.")
 except Exception as e:
     print("Error during data import:", e)
