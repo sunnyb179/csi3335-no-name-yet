@@ -94,7 +94,6 @@ def team_roster():
        """, (session['user'], team_name, year))
     conn.commit()
 
-    # Fetch batting statistics along with positions and games played at each position
     cursor.execute("""
         SELECT DISTINCT p.nameFirst, p.nameLast, b.AB, b.H, b.BB, b.SO, b.2B, b.3B, b.HR,
                f.POS, f.G
@@ -119,12 +118,10 @@ def team_roster():
         position = record[9]
         games_at_position = int(record[10])
 
-        # Calculate batting averages
         avg = round(hits / at_bats, 3) if at_bats > 0 else 0
         obp = round((hits + walks) / (at_bats + walks) if at_bats + walks > 0 else 0, 3)
         slg = round((hits + doubles * 2 + triples * 3 + home_runs * 4) / at_bats if at_bats > 0 else 0, 3)
 
-        # Append the statistics
         batting_stats.append({
             'name': name,
             'position': position,
