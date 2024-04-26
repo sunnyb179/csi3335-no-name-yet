@@ -10,7 +10,8 @@
     <table border="1">
         <tr>
             <th>Player</th>
-            <th>Games Played</th>
+            <th>Position</th>
+            <th>Games at Position</th>
             <th>Batting Average</th>
             <th>On Base Percentage</th>
             <th>Slugging Percentage</th>
@@ -18,6 +19,7 @@
         {% for batter in batting_stats %}
         <tr>
             <td>{{ batter['name'] }}</td>
+            <td>{{ batter['position'] }}</td>
             <td>{{ batter['games'] }}</td>
             <td>{{ batter['avg'] }}</td>
             <td>{{ batter['obp'] }}</td>

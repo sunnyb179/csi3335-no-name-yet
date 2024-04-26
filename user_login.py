@@ -88,38 +88,52 @@ def team_roster():
 
     conn = get_db_connection()
     cursor = conn.cursor()
-
     cursor.execute("""
-        SELECT DISTINCT p.nameFirst, p.nameLast, b.G, b.AB, b.H, b.2B, b.3B, b.HR, b.BB, b.SO
+           INSERT INTO user_selections (username, team_name, year, timestamp)
+           VALUES (%s, %s, %s, NOW())
+       """, (session['user'], team_name, year))
+    conn.commit()
+
+    # Fetch batting statistics along with positions and games played at each position
+    cursor.execute("""
+        SELECT DISTINCT p.nameFirst, p.nameLast, b.AB, b.H, b.BB, b.SO, b.2B, b.3B, b.HR,
+               f.POS, f.G
         FROM batting b
         JOIN people p ON b.playerID = p.playerID
-        JOIN teams t ON t.teamID = b.teamID
+        JOIN teams t ON b.teamID = t.teamID
+        JOIN fielding f ON f.playerID = p.playerID AND f.yearID = b.yearID AND f.teamID = b.teamID
         WHERE t.name = %s AND b.yearID = %s
+        ORDER BY p.nameLast, p.nameFirst, f.POS
     """, (team_name, year))
-    batters = cursor.fetchall()
 
     batting_stats = []
-    for batter in batters:
-        games = int(batter[2])
-        at_bats = int(batter[3])
-        hits = int(batter[4])
-        doubles = int(batter[5])
-        triples = int(batter[6])
-        home_runs = int(batter[7])
-        walks = int(batter[8])
-        strikeouts = int(batter[9])
+    for record in cursor.fetchall():
+        name = f"{record[0]} {record[1]}"
+        at_bats = int(record[2])
+        hits = int(record[3])
+        walks = int(record[4])
+        strikeouts = int(record[5])
+        doubles = int(record[6])
+        triples = int(record[7])
+        home_runs = int(record[8])
+        position = record[9]
+        games_at_position = int(record[10])
 
-        avg = hits / at_bats if at_bats else 0
-        obp = (hits + walks) / (at_bats + walks) if at_bats + walks else 0
-        slg = (hits + doubles * 2 + triples * 3 + home_runs * 4) / at_bats if at_bats else 0
+        # Calculate batting averages
+        avg = round(hits / at_bats, 3) if at_bats > 0 else 0
+        obp = round((hits + walks) / (at_bats + walks) if at_bats + walks > 0 else 0, 3)
+        slg = round((hits + doubles * 2 + triples * 3 + home_runs * 4) / at_bats if at_bats > 0 else 0, 3)
 
+        # Append the statistics
         batting_stats.append({
-            'name': f"{batter[0]} {batter[1]}",
-            'games': games,
+            'name': name,
+            'position': position,
+            'games': games_at_position,
             'avg': f"{avg:.3f}",
             'obp': f"{obp:.3f}",
             'slg': f"{slg:.3f}"
         })
+
 
     cursor.execute("""
             SELECT DISTINCT p.nameFirst, p.nameLast, pi.G, pi.GS, pi.IPouts/3 as IP, pi.H, pi.BB, pi.SO
