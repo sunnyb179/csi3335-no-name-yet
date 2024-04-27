@@ -54,6 +54,8 @@ def login():
 
         if user and bcrypt.checkpw(password, user[0].encode('utf-8')):
             session['user'] = username
+            if username == 'admin':
+                return redirect(url_for('admin'))
             return redirect(url_for('select_team'))
         else:
             return render_template('login.html', error='Wrong username or password')
@@ -161,6 +163,28 @@ def team_roster():
 
     return render_template('team_roster.html', batting_stats=batting_stats, pitching_stats=pitching_stats,
                            team_name=team_name, year=year)
+
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    if 'user' not in session:
+        return jsonify({'message': 'You need to login first'}), 401
+
+    if session['user'] != 'admin':
+        return jsonify({'message': 'Unauthorized'}), 403
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM user_selections")
+    user_logs = cursor.fetchall()
+
+    cursor.execute("SELECT COUNT(*) FROM user_selections")
+    total_requests = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return render_template('admin.html', user_logs=user_logs, total_requests=total_requests)
 
 
 if __name__ == '__main__':
