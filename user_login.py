@@ -187,5 +187,10 @@ def admin():
     return render_template('admin.html', user_logs=user_logs, total_requests=total_requests)
 
 
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Admin Dashboard</h1>
+    <a href="{{ url_for('logout') }}">Logout</a>
     <h2>User Logs</h2>
     <table border="1">
         <tr>
@@ -25,7 +26,6 @@
         </tr>
         {% endfor %}
     </table>
-
     <h2>Total Requests: {{ total_requests }}</h2>
 </body>
 </html>
