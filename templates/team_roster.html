@@ -19,7 +19,7 @@
         </tr>
         {% for batter in batting_stats %}
         <tr>
-            <td>{{ batter['name'] }}</td>
+            <td><a href="{{ url_for('player_stats', player_id=batter['player_id']) }}">{{ batter['name'] }}</a></td>
             <td>{{ batter['position'] }}</td>
             <td>{{ batter['games'] }}</td>
             <td>{{ batter['avg'] }}</td>
@@ -40,7 +40,7 @@
         </tr>
         {% for pitcher in pitching_stats %}
         <tr>
-            <td>{{ pitcher['name'] }}</td>
+            <td><a href="{{ url_for('player_stats', player_id=pitcher['player_id']) }}">{{ pitcher['name'] }}</a></td>
             <td>{{ pitcher['games'] }}</td>
             <td>{{ pitcher['games_started'] }}</td>
             <td>{{ pitcher['innings_pitched'] }}</td>

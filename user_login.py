@@ -97,7 +97,7 @@ def team_roster():
     conn.commit()
 
     cursor.execute("""
-        SELECT DISTINCT p.nameFirst, p.nameLast, b.AB, b.H, b.BB, b.SO, b.2B, b.3B, b.HR,
+        SELECT DISTINCT p.playerid, p.nameFirst, p.nameLast, b.AB, b.H, b.BB, b.SO, b.2B, b.3B, b.HR,
                f.POS, f.G
         FROM batting b
         JOIN people p ON b.playerID = p.playerID
@@ -109,22 +109,24 @@ def team_roster():
 
     batting_stats = []
     for record in cursor.fetchall():
-        name = f"{record[0]} {record[1]}"
-        at_bats = int(record[2])
-        hits = int(record[3])
-        walks = int(record[4])
-        strikeouts = int(record[5])
-        doubles = int(record[6])
-        triples = int(record[7])
-        home_runs = int(record[8])
-        position = record[9]
-        games_at_position = int(record[10])
+        player_id = record[0]
+        name = f"{record[1]} {record[2]}"
+        at_bats = int(record[3])
+        hits = int(record[4])
+        walks = int(record[5])
+        strikeouts = int(record[6])
+        doubles = int(record[7])
+        triples = int(record[8])
+        home_runs = int(record[9])
+        position = record[10]
+        games_at_position = int(record[11])
 
         avg = round(hits / at_bats, 3) if at_bats > 0 else 0
         obp = round((hits + walks) / (at_bats + walks) if at_bats + walks > 0 else 0, 3)
         slg = round((hits + doubles * 2 + triples * 3 + home_runs * 4) / at_bats if at_bats > 0 else 0, 3)
 
         batting_stats.append({
+            'player_id': player_id,
             'name': name,
             'position': position,
             'games': games_at_position,
@@ -135,7 +137,7 @@ def team_roster():
 
 
     cursor.execute("""
-            SELECT DISTINCT p.nameFirst, p.nameLast, pi.G, pi.GS, pi.IPouts/3 as IP, pi.H, pi.BB, pi.SO
+            SELECT DISTINCT p.playerid, p.nameFirst, p.nameLast, pi.G, pi.GS, pi.IPouts/3 as IP, pi.H, pi.BB, pi.SO
             FROM pitching pi
             JOIN people p ON pi.playerID = p.playerID
             JOIN teams t ON t.teamID = pi.teamID
@@ -145,12 +147,21 @@ def team_roster():
 
     pitching_stats = []
     for pitcher in pitchers:
-        games, games_started, innings_pitched, hits, walks, strikeouts = map(int, pitcher[2:])
+        player_id = pitcher[0]
+        name = f"{pitcher[1]} {pitcher[2]}"
+        games = int(pitcher[3])
+        games_started = int(pitcher[4])
+        innings_pitched = float(pitcher[5])
+        hits = int(pitcher[6])
+        walks = int(pitcher[7])
+        strikeouts = int(pitcher[8])
+
         whip = (hits + walks) / innings_pitched if innings_pitched else 0
         k_per_9 = (strikeouts * 9) / innings_pitched if innings_pitched else 0
 
         pitching_stats.append({
-            'name': f"{pitcher[0]} {pitcher[1]}",
+            'player_id': player_id,
+            'name': name,
             'games': games,
             'games_started': games_started,
             'innings_pitched': innings_pitched,
@@ -191,6 +202,26 @@ def admin():
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
+
+@app.route('/player_stats/<player_id>')
+def player_stats(player_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT DISTINCT p.nameFirst, p.nameLast, b.yearID, t.name, b.G, b.AB, b.H, b.HR, b.RBI
+        FROM batting b
+        JOIN people p ON b.playerID = p.playerID
+        JOIN teams t ON b.teamID = t.teamID
+        WHERE b.playerID = %s
+        ORDER BY b.yearID ASC
+    """, (player_id,))
+    stats = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return render_template('player_stats.html', stats=stats, player_name=stats[0][0] + ' ' + stats[0][1] if stats else 'Unknown Player')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
