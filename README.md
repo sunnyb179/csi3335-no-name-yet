@@ -63,7 +63,7 @@ deactivate
 
 3. **Import the Database Dump**
    ```bash
-   mysql -u root -p nonameyet < database_dump.sql
+   mysql -u root -p nonameyet < nonameyet.sql
    ```
     password is: nguyen12
 
