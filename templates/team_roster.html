@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Team Roster for {{ team_name }} ({{ year }})</title>
+</head>
+<body>
+    <h1>Team Roster for {{ team_name }} ({{ year }})</h1>
+    <a href="{{ url_for('logout') }}">Logout</a>
+    <h2>Batting Statistics</h2>
+    <table border="1">
+        <tr>
+            <th>Player</th>
+            <th>Position</th>
+            <th>Games at Position</th>
+            <th>Batting Average</th>
+            <th>On Base Percentage</th>
+            <th>Slugging Percentage</th>
+        </tr>
+        {% for batter in batting_stats %}
+        <tr>
+            <td><a href="{{ url_for('player_stats', player_id=batter['player_id']) }}">{{ batter['name'] }}</a></td>
+            <td>{{ batter['position'] }}</td>
+            <td>{{ batter['games'] }}</td>
+            <td>{{ batter['avg'] }}</td>
+            <td>{{ batter['obp'] }}</td>
+            <td>{{ batter['slg'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Pitching Statistics</h2>
+    <table border="1">
+        <tr>
+            <th>Player</th>
+            <th>Games Pitched</th>
+            <th>Games Started</th>
+            <th>Innings Pitched</th>
+            <th>WHIP</th>
+            <th>Strikeouts per 9 Innings</th>
+        </tr>
+        {% for pitcher in pitching_stats %}
+        <tr>
+            <td><a href="{{ url_for('player_stats', player_id=pitcher['player_id']) }}">{{ pitcher['name'] }}</a></td>
+            <td>{{ pitcher['games'] }}</td>
+            <td>{{ pitcher['games_started'] }}</td>
+            <td>{{ pitcher['innings_pitched'] }}</td>
+            <td>{{ pitcher['whip'] }}</td>
+            <td>{{ pitcher['k_per_9'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
