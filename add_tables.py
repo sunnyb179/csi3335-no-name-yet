@@ -10,12 +10,12 @@ except Exception as e:
 
 # load CSV files with specified encoding and handle exceptions
 try:
-    df_teams = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\Teams.csv', encoding='ISO-8859-1')
-    df_halloffame = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\HallOfFame.csv', encoding='ISO-8859-1')
-    df_batting = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\Batting.csv', encoding='ISO-8859-1')
-    df_pitching = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\Pitching.csv', encoding='ISO-8859-1')
-    df_people = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\People.csv', encoding='ISO-8859-1')
-    df_fielding = pd.read_csv('C:\\Users\\vince\\Downloads\\halloffame\\lahman_1871-2023_csv\\Fielding.csv', encoding='ISO-8859-1')
+    df_teams = pd.read_csv('lahman_1871-2023_csv\\Teams.csv', encoding='ISO-8859-1')
+    df_halloffame = pd.read_csv('lahman_1871-2023_csv\\HallOfFame.csv', encoding='ISO-8859-1')
+    df_batting = pd.read_csv('lahman_1871-2023_csv\\Batting.csv', encoding='ISO-8859-1')
+    df_pitching = pd.read_csv('lahman_1871-2023_csv\\Pitching.csv', encoding='ISO-8859-1')
+    df_people = pd.read_csv('lahman_1871-2023_csv\\People.csv', encoding='ISO-8859-1')
+    df_fielding = pd.read_csv('lahman_1871-2023_csv\\Fielding.csv', encoding='ISO-8859-1')
     print("CSV files loaded successfully.")
 except FileNotFoundError as e:
     print("File not found:", e)
