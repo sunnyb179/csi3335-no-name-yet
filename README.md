@@ -21,7 +21,7 @@ This README provides comprehensive setup instructions for running the web applic
 
 2. **Create and Activate a Virtual Environment:**
 
-   Navigate to the extracted directory and create a virtual environment:
+   Navigate to the extracted directory, cd into csi3335-no-name-yet, and create a virtual environment:
 
    **For Windows:**
    ```bash
