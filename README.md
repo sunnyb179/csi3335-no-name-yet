@@ -67,3 +67,7 @@ deactivate
    ```
     password is: nguyen12
 
+
+### Extra Credit
+1. Added all years from 1930 all the way up to 2023
+2. Included a link to each player on the team roster page that takes the user to all of the player's stats throughout the years
