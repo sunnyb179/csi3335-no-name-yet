@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify, session, render_template, redirect, url_for
 import bcrypt
 import mysql.connector
-from csi3335sp2023 import get_db_connection
-
+from connectionDictionary import mysql as db_config
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -10,6 +9,14 @@ app.secret_key = 'your_secret_key'
 @app.route('/')
 def home():
     return render_template('home.html')
+def get_db_connection():
+    conn = mysql.connector.connect(
+        host=db_config['location'],
+        user=db_config['user'],
+        password=db_config['password'],
+        database="nonameyet"
+    )
+    return conn
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
