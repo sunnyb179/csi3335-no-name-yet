@@ -1,73 +1,81 @@
-# CSI3335 Project Virtual Environment
+---
+title: "CSI3335 Project Documentation"
+output: html_document
+---
 
-This repository provides a virtual environment setup with specified dependencies for student projects in the CSI3335 course. **Please use Python 3.10 and above**
+# CSI3335 Project Documentation
 
-## Description
+This README provides comprehensive setup instructions for running the web application developed for the CSI3335 course using Flask and MariaDB.
 
-This virtual environment contains essential Python libraries and frameworks required for the project. The `requirements.txt` file lists all the dependencies.
+## Getting Started
 
-## Instructions
+### Prerequisites
 
+- Python 3.10 or higher
+- MariaDB 11.3 or compatible version
 
-1. **Clone the Repository**:
+### Setup Instructions
 
-```bash
-git clone https://github.com/sanjelarun/csi3335-project-venv.git
-cd csi3335-project-venv
-```
+1. **Extract the ZIP File:**
+   Unzip the provided ZIP file into a directory of your choice. This directory will contain all the necessary files including the Python scripts, SQL dump, and configuration files.
 
-2. **Create a Virtual Environment**
+2. **Create and Activate a Virtual Environment:**
 
-**For Windows**
-```bash
-python -m venv project_env
-```
-**For Linux/MacOs**
-```bash
-python3 -m venv project_env
+   Navigate to the extracted directory and create a virtual environment:
 
-```
-3. **Activate the Virtual Environment**
-
-**For Windows**
-```bash
-.\project_env\Scripts\activate
-```
-**For Linux/MacOs**
-```bash
-source project_env/bin/activate
-```
-
-4. **Install the dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-## Usage
-
-Once the virtual environment is activated and dependencies are installed, you can start working on your project within this environment. Remember to deactivate the virtual environment once you're done:
-
-```bash
-deactivate
-```
-### Database Setup Instructions
-1. **Clone the Repository:**
+   **For Windows:**
    ```bash
-   git clone https://github.com/sunnyb179/csi3335-no-name-yet.git
+   python -m venv project_env
+   .\project_env\Scripts\activate
+   ```
+   **For Linux/MacOS:**   
+   ```bash
+   python3 -m venv project_env
+   source project_env/bin/activate
+   ```
+
+3. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
    ```
    
-2. **Navigate to the Repository**
-   ```bash
-   cd csi3335-no-name-yet
+### Database Setup
+1. **Start MariaDB Service:**
+    - Press Windows Key + R, type services.msc, and press Enter.
+    - Scroll to find MariaDB, right-click it, and choose "Start".
+   
+2. **Import the Database:**
+    - Open a command prompt or terminal in the MariaDB bin directory and run:
+    ```bash
+    mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS nonameyet;"
+    mysql -u root -p nonameyet < nonameyet.sql
    ```
+   - The password is: nguyen12
 
-3. **Import the Database Dump**
+### Running the Flask Application
+1. **Launch the Application:**
+    - Ensure you are in the root directory of the extracted project where the user_login.py file is located. Start the Flask application by running:
    ```bash
-   mysql -u root -p nonameyet < nonameyet.sql
+    python user_login.py
    ```
-    password is: nguyen12
+   - Access the web application through a browser at http://127.0.0.1:5000.
 
-
+### Closing the Application
+- To stop the Flask server, press CTRL+C in your command prompt or terminal. Deactivate the virtual environment with:
+   ```bash
+   deactivate
+   ```
+  
+### Note
+- Please make sure to update the database credentials in the `csi3335sp2023.py` if necessary. This project using the following configuration:
+```bash
+mysql_dict = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'nguyen12',
+    'database': 'nonameyet'
+}
+```
 ### Extra Credit
-1. Added all years from 1930 all the way up to 2023
-2. Included a link to each player on the team roster page that takes the user to all of the player's stats throughout the years
+1. **Added all stats of all players and teams from years 1930 all the way up to 2023**
+2. **Included a link to each player on the team roster page that takes the user to all of the player's stats throughout the years**
