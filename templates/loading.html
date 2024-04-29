@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <script>
+        function checkDatabaseReady() {
+            fetch('/check_status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.is_ready) {
+                        window.location.href = '/';  // Redirect to the home if ready
+                    } else {
+                        setTimeout(checkDatabaseReady, 1000);  // Poll every second
+                    }
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', checkDatabaseReady);
+    </script>
+</head>
+<body>
+    <h1>Our database is initializing...Please wait...</h1>
+</body>
+</html>
