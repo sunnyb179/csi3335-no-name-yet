@@ -1,7 +1,7 @@
 mysql_dict = {
     'location': 'localhost',
     'user': 'root',
-    'password': '',
+    'password': 'nguyen12',
     'database': 'nonameyet'
     # 'password': 'nguyen12',
 }
