@@ -11,9 +11,9 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.is_ready) {
-                        window.location.href = '/';  // Redirect to the home if ready
+                        window.location.href = '/';
                     } else {
-                        setTimeout(checkDatabaseReady, 1000);  // Poll every second
+                        setTimeout(checkDatabaseReady, 1000);
                     }
                 });
         }

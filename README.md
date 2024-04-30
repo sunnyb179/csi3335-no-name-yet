@@ -56,7 +56,7 @@ This README provides comprehensive setup instructions for running the web applic
 1. **Launch the Application:**
     - Ensure you are in the root directory of the extracted project where the user_login.py file is located. Start the Flask application by running:
    ```bash
-    python user_login.py
+    python app.py
    ```
    - Access the web application through a browser at http://127.0.0.1:5000.
 

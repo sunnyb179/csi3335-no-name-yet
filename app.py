@@ -1,29 +1,23 @@
-from flask import Flask, request, jsonify, session, render_template, redirect, url_for
+from flask import Flask, request, jsonify, session, render_template, redirect, url_for, flash
 import bcrypt
 import threading
-from db_connection import get_db_connection
+from db_connection import get_db_connection, prepare_database as init_database
 
-is_database_ready = False  # Global flag to track database readiness
+is_database_ready = False
 
 
 def prepare_database():
     global is_database_ready
-    import time
-    time.sleep(10)  # Simulate database preparation delay
+    print("Starting database initialization...")
+    init_database()
     is_database_ready = True
     print("Database is ready!")
-
-
-def prepare_database_in_background():
-    """Run the prepare_database function in a background thread."""
-    threading.Thread(target=prepare_database).start()
 
 
 def create_app():
     app = Flask(__name__)
     app.secret_key = 'your_secret_key'
-
-    prepare_database_in_background()
+    threading.Thread(target=prepare_database, daemon=True).start()
 
     @app.route('/')
     def index():
@@ -50,17 +44,22 @@ def register_routes(app):
 
             conn = get_db_connection()
             cursor = conn.cursor()
+
+            # Corrected parameter passing as a tuple
             cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
             if cursor.fetchone():
-                return jsonify({'message': 'Username already exists'}), 409
+                flash('Username already exists.')
+                return redirect(url_for('register'))  # Redirect to register if username exists
 
+            # Proceed with user registration if username doesn't exist
             cursor.execute("INSERT INTO users (username, hashed_password) VALUES (%s, %s)",
                            (username, hashed_password.decode('utf-8')))
             conn.commit()
             cursor.close()
             conn.close()
 
-            return render_template('login.html', message='User registered successfully.')
+            flash('User registered successfully. Please login.')
+            return redirect(url_for('login'))
         else:
             return render_template('register.html')
 
@@ -83,7 +82,8 @@ def register_routes(app):
                     return redirect(url_for('admin'))
                 return redirect(url_for('select_team'))
             else:
-                return render_template('login.html', error='Wrong username or password')
+                flash('Wrong username or password')
+                return render_template('login.html')
         else:
             return render_template('login.html')
 
@@ -100,6 +100,7 @@ def register_routes(app):
         years = cursor.fetchall()
         cursor.close()
         conn.close()
+        flash('Search takes around 1 minute! While we searching for result, please wait!')
 
         return render_template('select_team.html', teams=teams, years=years)
 
@@ -119,12 +120,13 @@ def register_routes(app):
            """, (session['user'], team_name, year))
         conn.commit()
 
+
         cursor.execute("""
             SELECT DISTINCT p.playerid, p.nameFirst, p.nameLast, b.AB, b.H, b.BB, b.SO, b.2B, b.3B, b.HR,
                    f.POS, f.G
             FROM batting b
             JOIN people p ON b.playerID = p.playerID
-            JOIN teams t ON b.teamID = t.teamID
+            JOIN teams t ON b.teamID = t.teamID AND b.yearID = t.yearID
             JOIN fielding f ON f.playerID = p.playerID AND f.yearID = b.yearID AND f.teamID = b.teamID
             WHERE t.name = %s AND b.yearID = %s
             ORDER BY p.nameLast, p.nameFirst, f.POS

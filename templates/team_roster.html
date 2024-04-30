@@ -5,6 +5,16 @@
     <title>Team Roster for {{ team_name }} ({{ year }})</title>
 </head>
 <body>
+    <a href="#" onclick="history.back(); return false;">Go Back</a>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashed-messages">
+        {% for message in messages %}
+          <p><b>{{ message }}</b></p>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <h1>Team Roster for {{ team_name }} ({{ year }})</h1>
     <a href="{{ url_for('logout') }}">Logout</a>
     <h2>Batting Statistics</h2>

@@ -5,11 +5,21 @@
     <title>Register</title>
 </head>
 <body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashed-messages">
+        {% for message in messages %}
+          <p><b>{{ message }}</b></p>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <h1>Register</h1>
     <form method="post">
         Username: <input type="text" name="username"><br>
         Password: <input type="password" name="password"><br>
         <input type="submit" value="Register">
     </form>
+    <a href="/login">Login</a> <a href="/">home</a>
 </body>
 </html>
