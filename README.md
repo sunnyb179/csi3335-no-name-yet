@@ -5,14 +5,14 @@ output: html_document
 
 # CSI3335 Project Group "No Name Yet"
 
-This README will show you how to run our project on your machine
+This README will show you how to run our project on your machine.
 
 ## Getting Started
 
 ### Prerequisites
 
 - Python 3.10 or higher
-- MariaDB 11.3 or compatible version
+- MariaDB 11.3 or a compatible version
 
 ### Setup Instructions
 
@@ -24,7 +24,7 @@ This README will show you how to run our project on your machine
 2. In the project's main folder, modify the `csi3335sp2023.py` file as needed to match the MySQL user information for database connection.
 
 
-3. Ensure that the necessary Python packages are installed in the project's virtual environment. You can use command prompt in the current directory and do
+3. Ensure the necessary Python packages are installed in the project's virtual environment. You can use the command prompt in the current directory and do
 
    ```bash
    pip install -r requirements.txt
@@ -39,7 +39,7 @@ This README will show you how to run our project on your machine
    ```bash
    flask run
    ```
-   If the project did not boot up correctly or encounters 404 please to try the following commands in the terminal:
+   If the project did not boot up correctly or encounters 404, please try the following commands in the terminal:
     ```bash
     mysql -u root -p -e "DROP DATABASE IF EXISTS nonameyet;" 
     mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS nonameyet;"
@@ -49,27 +49,26 @@ This README will show you how to run our project on your machine
 3. Open a web browser and navigate to [http://localhost:5000](http://localhost:5000) to access the application.
 
 
-4. You will be directed to the login page and register page where the default admin credentials are:
+4. You will be directed to the login page and register page, where the default admin credentials are:
    - Username: admin
    - Password: admin123
--
 
 ![img.png](readMe%20image/img.png)
 
 
 5. Upon successful login, you will have access to search and view stats based on your permissions.
    
-*Please notice you might get no result for 2023 since some teams' stats are not updated for 2023 in the database. For 2023 only the teams table and the hall of fame table is fully updated.*
+*Please notice you might get no result for 2023 since some teams' stats are not updated for 2023 in the database. For 2023, only the teams' table and the Hall of Fame table are fully updated.*
 
 ![img2.png](readMe%20image%2Fimg2.png)
 
 ## Other Files
 
-The project have other files included:
+The project has other files included:
 
-- `lahman_1871-2023_csv`: Contains the baseball data in csv format.
+- `lahman_1871-2023_csv`: Contains the baseball data in CSV format.
 - `project_env`: Contains project compile library.
-- `python scripts`: Use to update database by reading csv files.
+- `Python scripts`: Used to update the database by reading CSV files.
 
 
 
