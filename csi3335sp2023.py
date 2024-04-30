@@ -3,5 +3,4 @@ mysql_dict = {
     'user': 'root',
     'password': 'nguyen12',
     'database': 'nonameyet'
-    # 'password': 'nguyen12',
 }
