@@ -4,6 +4,7 @@
     <title>Select Team</title>
 </head>
 <body>
+    <a href="#" onclick="history.back(); return false;">Go Back</a>
     <h1>Select a Team and Year</h1>
     <a href="{{ url_for('logout') }}">Logout</a>
     <form action="{{ url_for('team_roster') }}" method="get">
@@ -23,5 +24,14 @@
 
         <input type="submit" value="Submit">
     </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashed-messages">
+        {% for message in messages %}
+          <p><b>{{ message }}</b></p>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 </body>
 </html>
