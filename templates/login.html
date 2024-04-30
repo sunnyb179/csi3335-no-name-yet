@@ -3,23 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"], input[type="password"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+
+        .flashed-messages p {
+            color: red;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class="flashed-messages">
-        {% for message in messages %}
-          <p><b>{{ message }}</b></p>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    <h1>Login</h1>
-    <form method="post">
-        Username: <input type="text" name="username"><br>
-        Password: <input type="password" name="password"><br>
-        <input type="submit" value="Login">
-    </form>
-    <a href="/register">Register</a> <a href="/">home</a>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flashed-messages">
+            {% for message in messages %}
+                <p><b>{{ message }}</b></p>
+            {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <h1>Login</h1>
+        <form method="post">
+            Username: <input type="text" name="username"><br>
+            Password: <input type="password" name="password"><br>
+            <input type="submit" value="Login">
+        </form>
+        <div class="links">
+            <a class="btn" href="/register">Register</a>
+            <a class="btn" href="/">Home</a>
+        </div>
+    </div>
 </body>
 </html>

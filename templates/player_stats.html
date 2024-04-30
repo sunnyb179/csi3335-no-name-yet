@@ -3,32 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>Player Stats - {{ player_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 960px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <a href="#" onclick="history.back(); return false;">Go Back</a>
-    <h1>Statistics for {{ player_name }}</h1>
-    <table border="1">
-        <tr>
-            <th>Year</th>
-            <th>Team</th>
-            <th>Games</th>
-            <th>At Bats</th>
-            <th>Hits</th>
-            <th>Home Runs</th>
-            <th>RBIs</th>
-        </tr>
-        {% for stat in stats %}
-        <tr>
-            <td>{{ stat[2] }}</td>
-            <td>{{ stat[3] }}</td>
-            <td>{{ stat[4] }}</td>
-            <td>{{ stat[5] }}</td>
-            <td>{{ stat[6] }}</td>
-            <td>{{ stat[7] }}</td>
-            <td>{{ stat[8] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <a href="{{ url_for('logout') }}">Logout</a>
+    <div class="container">
+        <div class="links">
+            <a href="#" onclick="history.back(); return false;" class="btn">Go Back</a>
+            <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+        </div>
+        <h1>Statistics for {{ player_name }}</h1>
+        <table>
+            <tr>
+                <th>Year</th>
+                <th>Team</th>
+                <th>Games</th>
+                <th>At Bats</th>
+                <th>Hits</th>
+                <th>Home Runs</th>
+                <th>RBIs</th>
+            </tr>
+            {% for stat in stats %}
+            <tr>
+                <td>{{ stat[2] }}</td>
+                <td>{{ stat[3] }}</td>
+                <td>{{ stat[4] }}</td>
+                <td>{{ stat[5] }}</td>
+                <td>{{ stat[6] }}</td>
+                <td>{{ stat[7] }}</td>
+                <td>{{ stat[8] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>

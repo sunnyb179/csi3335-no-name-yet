@@ -3,9 +3,9 @@ title: "CSI3335 Project Documentation"
 output: html_document
 ---
 
-# CSI3335 Project Group No Name Yest
+# CSI3335 Project Group "No Name Yet"
 
-This README will show you have to run our project on your machine
+This README will show you how to run our project on your machine
 
 ## Getting Started
 
@@ -39,7 +39,7 @@ This README will show you have to run our project on your machine
    ```bash
    flask run
    ```
-   if the project did not boot up correctly or encounters 404 please to try the following command in the terminal:
+   If the project did not boot up correctly or encounters 404 please to try the following commands in the terminal:
     ```bash
     mysql -u root -p -e "DROP DATABASE IF EXISTS nonameyet;" 
     mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS nonameyet;"
@@ -52,10 +52,16 @@ This README will show you have to run our project on your machine
 4. You will be directed to the login page and register page where the default admin credentials are:
    - Username: admin
    - Password: admin123
+-
+
+![img.png](readMe%20image/img.png)
 
 
 5. Upon successful login, you will have access to search and view stats based on your permissions.
+   
+*Please notice you might get no result for 2023 since some teams' stats are not updated for 2023 in the database. For 2023 only the teams table and the hall of fame table is fully updated.*
 
+![img.png](readMe image/img2.png)
 
 ## Other Files
 
@@ -68,6 +74,6 @@ The project have other files included:
 
 
 ## Extra Credit
-1. **Added all stats of all players and teams from years 1930 all the way up to 2023**
+1. **Added all stats of all players and teams from years 1930 all the way up to 2022( Some stats of 2023)**
 
 2. **Included a link to each player on the team roster page that takes the user to all of the player's stats throughout the years**
