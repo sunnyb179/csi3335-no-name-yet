@@ -61,7 +61,7 @@ This README will show you how to run our project on your machine
    
 *Please notice you might get no result for 2023 since some teams' stats are not updated for 2023 in the database. For 2023 only the teams table and the hall of fame table is fully updated.*
 
-![img.png](readMe image/img2.png)
+![img2.png](readMe%20image%2Fimg2.png)
 
 ## Other Files
 
