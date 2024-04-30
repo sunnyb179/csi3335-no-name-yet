@@ -77,3 +77,5 @@ The project have other files included:
 1. **Added all stats of all players and teams from years 1930 all the way up to 2022( Some stats of 2023)**
 
 2. **Included a link to each player on the team roster page that takes the user to all of the player's stats throughout the years**
+
+3. **User-friendly UI that is clear to use and navigate**
