@@ -45,6 +45,7 @@ This README will show you how to run our project on your machine.
     mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS nonameyet;"
     mysql -u root -p nonameyet < nonameyet.sql
    ```
+   If still not working, most likely you have your credential for sql wrong. Double-check the csi3335sp2023.py file you got it right.
    
 3. Open a web browser and navigate to [http://localhost:5000](http://localhost:5000) to access the application.
 
